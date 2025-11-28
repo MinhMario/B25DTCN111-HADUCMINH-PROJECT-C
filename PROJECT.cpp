@@ -13,7 +13,7 @@ typedef struct{
 	char productId[10];
 	char name[50];
 	char unit[10];
-	int qty;//So luong ton kho
+	int qty;
 	int status;
 	Transaction trans;
 }Product;
@@ -100,7 +100,17 @@ void getString(char* string,int size){
 	}
 	} while (strlen(string)==0);
 }
-
+void delspace(char *string){
+    int i, j = 0;
+    int len = strlen(string);
+    for(i = 0; i < len; i++){
+        if(!isspace(string[i])){
+            string[j] = string[i];
+            j++;
+        }
+    }
+    string[j] = '\0';
+}
 void add(){
     int n;
     do {
@@ -114,6 +124,7 @@ void add(){
             isDuplicate = 0;
             printf("Nhap ma san pham: ");
             getString(products[length].productId,sizeof(products[length].productId));
+            delspace(products[length].productId);
 
             for(int j = 0; j < length; j++){
                 if(strcmp(products[j].productId, products[length].productId) == 0){
@@ -150,6 +161,7 @@ void update(){
     printf("Nhap ma san pham can cap nhat: ");
     fgets(searchId, sizeof(searchId), stdin);
     searchId[strcspn(searchId, "\n")] = '\0';
+    delspace(searchId);
     
 
     int found = -1;  
@@ -209,6 +221,7 @@ void lock(){
 	char searchid[10];
 	fgets(searchid,sizeof(searchid),stdin);
 	searchid[strcspn(searchid,"\n")]='\0';
+	delspace(searchid);
 	int found=0;
 	for(int i=0;i<length;i++){
 		if(strcmp(searchid,products[i].productId)==0){
@@ -244,6 +257,7 @@ void search(){
 	do{
 		fgets(searchid,sizeof(searchid),stdin);
 		searchid[strcspn(searchid,"\n")]='\0';
+		delspace(searchid);
 		if(strlen(searchid)==0){
 			printf("Ma san pham khong duoc de trong ");
 		}
@@ -281,7 +295,7 @@ void search(){
  printf("+----------------------------------------------------------------------------+\n");
     printf("                       THONG TIN SAN PHAM HIEN TAI                       \n");
     printf("-------------------------------------------------------------------------\n");
-    printf(" Ma san pham   Ten san pham   Don vi tính   So luong     Trang thai    \n");
+    printf(" Ma san pham   Ten san pham   Don vi tÃ­nh   So luong     Trang thai    \n");
     printf("------------+---------------+--------------+--------------+--------------\n");
     
 
@@ -427,6 +441,7 @@ void transaction(){
     char searchId[10];
     printf("Nhap id san pham can giao dich");
 	getString(searchId,sizeof(searchId));
+	delspace(searchId);
     for(int i=0;i<length;i++){
     if(strcmp(searchId,products[i].productId)==0){
     found=i;	
@@ -509,6 +524,7 @@ void history(){
     printf("============================================================\n\n");
     printf("Nhap ma can xem lich su\n");
     getString(productid,sizeof(productid));
+    delspace(productid);
      int productIndex = -1;
      if(totalTransactions==0){
      	printf("Chua co giao dich");
