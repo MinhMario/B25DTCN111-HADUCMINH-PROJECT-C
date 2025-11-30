@@ -113,11 +113,19 @@ void delspace(char *string){
 }
 void add(){
     int n;
+    if(length >= 100){
+        printf("\nKho da day! Khong the them san pham!\n");
+        return;
+    }
     do {
         printf("Nhap so luong san pham: ");  
-        n=getNumber(0,1000);
-    } while (n <= 0);
+        n=getNumber(1,100-length);
+    } while (n <=0);
     for(int i = 0; i < n; i++){
+    	if(length >= 100){  
+            printf("\nDa dat gioi han kho! Chi them duoc %d san pham.\n", i);
+            break;
+        }
         printf("\n--- San pham thu %d ---\n", i + 1);
         int isDuplicate;
         do{
@@ -349,10 +357,11 @@ void sort(){
 				products[j]=temp;
 			}
 		}
-	}
+		}
+			printf("Da sap xep theo ten thanh cong\n!");
+	break;
 	case 3:
 		printf("Thoat\n");
-	printf("Da sap xep theo ten thanh cong\n!");
 	break;
 	default:
 		printf("Lua chon khong hop le\n");
@@ -371,8 +380,11 @@ void phanSotrang(){
   	int totalPage = (length + productsPerPage - 1) / productsPerPage;
 	int start=(currentPage-1)*productsPerPage;
 	int end=start+productsPerPage;
+	if(end>length){
+		end=length;
+		}
     system("cls");
-	printf("Trang %d/%d",currentPage,totalPage);
+	printf("Trang %d/%d\n",currentPage,totalPage);
     printf("+----------------------------------------------------------------------------+\n");
     printf("                       THONG TIN SAN PHAM HIEN TAI                       \n");
     printf("-------------------------------------------------------------------------\n");
@@ -400,10 +412,8 @@ void phanSotrang(){
 			case 1:
 				if(currentPage>1){
 				currentPage-=1;
-			}
-				if(currentPage<1){
-					printf("Khong co trang truoc\n");
-					continue;
+			}else{
+			printf("Ban dang o trang dau tien\n");
 				}
 				break;
 				case 2:
@@ -412,11 +422,9 @@ void phanSotrang(){
 				case 3:
 					if(currentPage<totalPage){
 					currentPage+=1;
+				}else{
+					printf("Ban da o trang cuoi cung\n");
 				}
-					if(currentPage>totalPage){
-						printf("Kich thuoc trang da dat toi da\n");
-						continue;
-					}
 					break;
 				default:
 					printf("Lua chon khong hop le\n");
@@ -505,7 +513,7 @@ void transaction(){
 				printf("\n=== XUAT HANG THANH CONG ===\n");
 			printf("Ma giao dich: %s\n", newTransId);
 			printf("So luong truoc: %d\n", qtyBefore);
-			printf("So luong nhap: %d\n", amount);
+			printf("So luong xuat: %d\n", amount);
 			printf("So luong sau: %d\n", products[found].qty);
 			break;
 	
