@@ -111,6 +111,7 @@ void delspace(char *string){
     }
     string[j] = '\0';
 }
+
 void add(){
     int n;
     if(length >= 100){
@@ -319,7 +320,6 @@ void search(){
 		printf("Khong tim thay san pham\n");
 		}
 		break;
-			
 			default:
 				printf("Lua chon khong hop le\n");
 		}
@@ -487,6 +487,9 @@ void transaction(){
 				strcpy(allTrans[totalTransactions].type, "NHAP");
 				currenttime(allTrans[totalTransactions].date);
 				totalTransactions++;
+			}else{
+				printf("Da dat gioi han giao dich\n");
+				return;
 			}
 				printf("\n=== NHAP HANG THANH CONG ===\n");
 			printf("Ma giao dich: %s\n", newTransId);
@@ -508,6 +511,9 @@ void transaction(){
 				strcpy(allTrans[totalTransactions].type, "XUAT");
 				currenttime(allTrans[totalTransactions].date);
 				totalTransactions++;
+			}else{
+			printf("Da dat gioi han giao dich\n");
+				return;
 			}
 
 				printf("\n=== XUAT HANG THANH CONG ===\n");
